@@ -6,8 +6,12 @@ if not exist build mkdir build
 set "LIBRARY_PREFIX=%CONDA_PREFIX%\Library"
 echo "LIBRARY_PREFIX: %LIBRARY_PREFIX%"
 
+set EXTRA_INCLUDE=%VCToolsInstallDir%\atlmfc\include
+
+:: append extra include path
+
 REM remove GL flag for now
-set "CXXFLAGS=-MD"
+set "CXXFLAGS=-MD /I\"%VCToolsInstallDir%atlmfc\include\""
 set "CC=cl.exe"
 set "CXX=cl.exe"
 
