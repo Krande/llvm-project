@@ -3,6 +3,9 @@ name = "llvm-project"
 version = "0.1.0"
 channels = ["conda-forge"]
 platforms = ["win-64"]
+[environments]
+
+ifx = { features = ["ifx"], no-default-feature = true }
 
 [dependencies]
 cmake = "*"
@@ -17,4 +20,25 @@ libxml2 = "*"
 vs_win-64 = "*"
 
 [tasks]
-flang = { cmd = ["conda/build_flang.bat"], description = "Build the project" }
+build = { cmd = ["conda/build_flang.bat"], description = "Build the project" }
+test = { cmd = ["run_value_bindc.bat"], description = "Test value BINDC", cwd="conda/tests" }
+test-main = { cmd = ["run_main_flang.bat"], description = "Test using Flang", cwd="conda/tests/basic" }
+
+[feature.ifx.dependencies]
+cmake = "*"
+python = "3.12.*"
+ninja = "*"
+c-compiler = "*"
+cxx-compiler = "*"
+zlib = "*"
+zstd = "*"
+vswhere = "*"
+libxml2 = "*"
+vs_win-64 = "*"
+
+[feature.ifx.target.win-64.activation]
+scripts = ["conda/activate_ifx.bat"]
+
+[feature.ifx.tasks]
+test-ifx = { cmd = ["run_value_bindc_ifx.bat"], description = "Test using IFX", cwd="conda/tests" }
+test-main-ifx = { cmd = ["run_main_ifx.bat"], description = "Test using IFX", cwd="conda/tests/basic" }
