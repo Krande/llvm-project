@@ -34,4 +34,3 @@ cmake -G Ninja -B build -S llvm ^
     -DLLVM_ENABLE_RUNTIMES="compiler-rt"
 
 
-ninja -C build install

@@ -11,34 +11,34 @@ ifx = { features = ["ifx"], no-default-feature = true }
 cmake = "*"
 python = "3.12.*"
 ninja = "*"
-c-compiler = "*"
-cxx-compiler = "*"
 zlib = "*"
 zstd = "*"
 vswhere = "*"
 libxml2 = "*"
-vs_win-64 = "*"
 
 [tasks]
 build = { cmd = ["conda/build_flang.bat"], description = "Build the project" }
-test = { cmd = ["run_value_bindc.bat"], description = "Test value BINDC", cwd="conda/tests" }
+install = { cmd = "ninja -C build install", description = "Install the project" }
+test = { cmd = ["run_value_bindc.bat"], description = "Test value BINDC", cwd="conda/tests/value_bindc" }
+tkinds = { cmd = ["run_flang.bat"], description = "Test value BINDC", cwd="conda/tests/kinds" }
 test-main = { cmd = ["run_main_flang.bat"], description = "Test using Flang", cwd="conda/tests/basic" }
+
+[target.win-64.activation]
+scripts = ["conda/activate.bat"]
 
 [feature.ifx.dependencies]
 cmake = "*"
 python = "3.12.*"
 ninja = "*"
-c-compiler = "*"
-cxx-compiler = "*"
 zlib = "*"
 zstd = "*"
 vswhere = "*"
 libxml2 = "*"
-vs_win-64 = "*"
 
 [feature.ifx.target.win-64.activation]
-scripts = ["conda/activate_ifx.bat"]
+scripts = ["conda/activate.bat", "conda/activate_ifx.bat"]
 
 [feature.ifx.tasks]
-test-ifx = { cmd = ["run_value_bindc_ifx.bat"], description = "Test using IFX", cwd="conda/tests" }
+test-ifx = { cmd = ["run_value_bindc_ifx.bat"], description = "Test using IFX", cwd="conda/tests/value_bindc" }
 test-main-ifx = { cmd = ["run_main_ifx.bat"], description = "Test using IFX", cwd="conda/tests/basic" }
+tkinds-ifx = { cmd = ["run_ifx.bat"], description = "Test value BINDC", cwd="conda/tests/kinds" }
